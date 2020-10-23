@@ -1,10 +1,10 @@
 #include <iostream>
 #include <time.h>
 #include <conio.h>
+#include"windows.h"
 #define BEGIN_GAME "Пятнашки перемешаны. Можно собирать!"
 #define END_GAME "Пятнашки собраны. ПОБЕДА!!!"
 using namespace std;
-char a2 = 166;
 int i, j, Q, temp1, temp2, z, x, Direction, DigChange, IndikSteps = 0;
 int IndikObezian = 0;// пасхальное яйцо))))))
 time_t StartTime, EndTime;
@@ -177,11 +177,9 @@ template<size_t A> void CreateAndFillMapPC(int arr[][A], const int Razmer){
 template<size_t A> void ShowMap(int arr[][A], const int Razmer) {
 	arr[Razmer][Razmer];
 	for (i = 0; i < Razmer; i++) {
-		cout << "-----------" << endl;
-		for (j = 0; j < Razmer; j++) { (arr[i][j]) ? cout << arr[i][j] << " " << a2 << " " : cout << "  " << a2; }
+		for (j = 0; j < Razmer; j++) { (arr[i][j]) ? cout << arr[i][j] << "\t" : cout << "  " << "\t"; }
 		cout << endl;
 	}
-	cout << "-----------" << endl;
 };
 template<size_t A> void SerchZero(int arr[][A], const int Razmer,int  &temp1, int& temp2) {
 	for (i = 0; i < Razmer; i++) {
@@ -224,6 +222,8 @@ template<size_t A> void StepRight(int arr[][A], const int Razmer, int& temp1, in
 		IndikSteps++;
 	}
 	else cout << "Движение невозможно" << endl;
+	ShowMap(arr, Razmer);
+	Sleep(300);	system("cls");
 }
 template<size_t A> void StepLeft(int arr[][A], const int Razmer, int& temp1, int& temp2, int &IndikSteps) {
 	SerchZero(arr, Razmer, temp1, temp2);
@@ -234,6 +234,8 @@ template<size_t A> void StepLeft(int arr[][A], const int Razmer, int& temp1, int
 		IndikSteps++;
 	}
 	else cout << "Движение невозможно" << endl;
+	ShowMap(arr, Razmer);
+	Sleep(300);	system("cls");
 }
 template<size_t A> void StepDown(int arr[][A], const int Razmer, int& temp1, int& temp2, int &IndikSteps) {
 	SerchZero(arr, Razmer, temp1, temp2);
@@ -244,6 +246,8 @@ template<size_t A> void StepDown(int arr[][A], const int Razmer, int& temp1, int
 		IndikSteps++;
 	}
 	else cout << "Движение невозможно" << endl;
+	ShowMap(arr, Razmer);
+	Sleep(300); system("cls");
 }
 template<size_t A> void StepUp(int arr[][A], const int Razmer, int& temp1, int& temp2, int &IndikSteps) {
 	SerchZero(arr, Razmer, temp1, temp2);
@@ -254,6 +258,8 @@ template<size_t A> void StepUp(int arr[][A], const int Razmer, int& temp1, int& 
 		IndikSteps++;
 	}
 	else cout << "Движение невозможно" << endl;
+	ShowMap(arr, Razmer);
+	Sleep(300);	system("cls");
 }
 template<size_t A> void ChangeMap(int arr[][A], const int Razmer, int& DigChange, int& IndikSteps) {
 	cout << "Фишки меняются стрелками на клавиатуре. Для выхода нажмите Enter" << endl;
