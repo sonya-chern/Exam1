@@ -6,9 +6,9 @@
 #define END_GAME "ѕ€тнашки собраны. ѕќЅ≈ƒј!!!"
 using namespace std;
 int i, j, Q, temp1, temp2, z, x, Direction, DigChange, IndikSteps = 0;
-int IndikObezian = 0;// пасхальное €йцо))))))
+int IndikObezian = 0;										// пасхальное €йцо))))))
 time_t StartTime, EndTime;
-int a, b;//позици€ числа на кост€шке
+int a, b;													//позици€ числа на фишке
 int Menu();
 template<size_t A> void RightMap(int arr[][A], const int Razmer);
 template<size_t A> void CreateAndFillMapPC(int arr[][A], const int Razmer);
@@ -19,7 +19,7 @@ template<size_t A> void StepRight(int arr[][A], const int Razmer, int& temp1, in
 template<size_t A> void StepLeft(int arr[][A], const int Razmer, int& temp1, int& temp2, int &IndikSteps);
 template<size_t A> void StepUp(int arr[][A], const int Razmer, int& temp1, int& temp2, int &IndikSteps);
 template<size_t A> void StepDown(int arr[][A], const int Razmer, int& temp1, int& temp2, int &IndikSteps);
-template<size_t A> int PossibilitySol(int arr[][A], const int Razmer);// можно ли решить перемешанное компьютером
+template<size_t A> int PossibilitySol(int arr[][A], const int Razmer);										// можно ли решить перемешанное компьютером
 template<size_t A> void ChangeMap(int arr[][A], const int Razmer, int& DigChange, int& IndikSteps);
 template<size_t A> void Corner(int arr[][A], const int Razmer, int& temp1, int& temp2, int &IndikSteps);
 template<size_t A> void Corner2(int arr[][A], const int Razmer, int& temp2, int& temp1, int& IndikSteps);
@@ -33,7 +33,7 @@ template<size_t A> void Func7(int arr[][A], const int Razmer, int& temp2, int& t
 template<size_t A> void Func8(int arr[][A], const int Razmer, int& temp2, int& temp1, int& IndikSteps);
 template<size_t A> void Func9(int arr[][A], const int Razmer, int& temp2, int& temp1, int& IndikSteps);
 template<size_t A> void Func10(int arr[][A], const int Razmer, int& temp2, int& temp1, int& IndikSteps);
-template<size_t A> void DigitPlace(int arr[][A], const int Razmer, int& a, int& b, int Q);//позици€ числа на фишке
+template<size_t A> void DigitPlace(int arr[][A], const int Razmer, int& a, int& b, int Q);					//позици€ числа на фишке
 template<size_t A> void PCgame3x3(int arr[][A], const int Razmer, int& temp1, int& temp2, int &IndikSteps);
 template<size_t A> void PCgame4x4(int arr[][A], int arr2[][A], const int Razmer, int& temp1, int& temp2, int& IndikSteps);
 template<size_t A> void ManualGame(int arr[][A], int arr2[][A], const int Razmer, int& temp1, int& temp2, int& IndikSteps);
@@ -46,7 +46,7 @@ int main() {
 	int IndikRegimaIgr = Menu();
 	if (IndikRegimaIgr < 1 || IndikRegimaIgr>8) return 0;
 	cout << "»гра началась!" << endl;
-	if (IndikRegimaIgr == 1) {//3 на 3 вручную человек (p)
+	if (IndikRegimaIgr == 1) {					//3 на 3 вручную человек (p)
 		const int Razmer = 3;
 		int arr[Razmer][Razmer];
 		int arr2[Razmer][Razmer];
@@ -54,49 +54,49 @@ int main() {
 		ShowMap(arr, Razmer);
 		ManualGame(arr, arr2, Razmer, temp1, temp2, IndikSteps);
 	}
-	else if (IndikRegimaIgr == 2) {//3 на 3, замес вручную, комп собирает (p)
+	else if (IndikRegimaIgr == 2) {				//3 на 3, замес вручную, комп собирает (p)
 		const int Razmer = 3;
 		int arr[Razmer][Razmer];
 		CreateAndFillManual(arr, Razmer);
 		ShowMap(arr, Razmer);
 		PCgame3x3(arr, Razmer, temp1, temp2, IndikSteps);
 	}
-	else if (IndikRegimaIgr == 3) {//3 на 3, замес комп, человек собирает (p)
+	else if (IndikRegimaIgr == 3) {				//3 на 3, замес комп, человек собирает (p)
 		const int Razmer = 3;
 		int arr[Razmer][Razmer]; 	int arr2[Razmer][Razmer];
 		CreateAndFillMapPC(arr, Razmer);
 		ShowMap(arr, Razmer);
 		ManualGame(arr, arr2, Razmer, temp1, temp2, IndikSteps);
 	}
-	else if (IndikRegimaIgr == 4) {// 3 на 3 комп комп (p)
+	else if (IndikRegimaIgr == 4){				// 3 на 3 комп комп (p)
 		const int Razmer = 3;
 		int arr[Razmer][Razmer];
 		CreateAndFillMapPC(arr, Razmer);
 		ShowMap(arr, Razmer);
 		PCgame3x3(arr, Razmer, temp1, temp2, IndikSteps);
 	}
-	else if (IndikRegimaIgr == 5) {//4 на 4 вручную человек (p)
+	else if (IndikRegimaIgr == 5) {				//4 на 4 вручную человек (p)
 		const int Razmer = 4;
 		int arr[Razmer][Razmer];	int arr2[Razmer][Razmer];
 		CreateAndFillManual(arr, Razmer);
 		ShowMap(arr, Razmer);
 		ManualGame(arr, arr2, Razmer, temp1, temp2, IndikSteps);
 	}
-	else if (IndikRegimaIgr == 6) {//4 на 4, замес вручную, комп собирает (p)
+	else if (IndikRegimaIgr == 6) {				//4 на 4, замес вручную, комп собирает (p)
 		const int Razmer = 4;
 		int arr[Razmer][Razmer];	int arr2[Razmer][Razmer];
 		CreateAndFillManual(arr, Razmer);
 		ShowMap(arr, Razmer);
 		PCgame4x4(arr, arr2, Razmer, temp1, temp2, IndikSteps);
 	}
-	else if (IndikRegimaIgr == 7) {//	4 на 4 комп человек (p)
+	else if (IndikRegimaIgr == 7) {				//	4 на 4 комп человек (p)
 		const int Razmer = 4;
 		int arr[Razmer][Razmer];	int arr2[Razmer][Razmer];
 		CreateAndFillMapPC(arr, Razmer);
 		ShowMap(arr, Razmer);
 		ManualGame(arr, arr2, Razmer, temp1, temp2, IndikSteps);
 	}
-	else if (IndikRegimaIgr == 8) {//	4 на 4 комп комп (p)
+	else if (IndikRegimaIgr == 8) {				//	4 на 4 комп комп (p)
 	const int Razmer = 4;
 	int arr[Razmer][Razmer];		int arr2[Razmer][Razmer];
 	CreateAndFillMapPC(arr, Razmer);
@@ -302,9 +302,9 @@ template<size_t A> int IsItVictory(int arr[][A], int arr2[][A], const int Razmer
 	else return 1;
 };
 template<size_t A> void Corner(int arr[][A], const int Razmer, int& temp1, int& temp2, int &IndikSteps) {
-	SerchZero(arr, Razmer, temp1, temp2);	StepDown(arr, Razmer, temp1, temp2, IndikSteps);
+	SerchZero(arr, Razmer, temp1, temp2);				StepDown(arr, Razmer, temp1, temp2, IndikSteps);
 	StepLeft(arr, Razmer, temp1, temp2, IndikSteps);	StepLeft(arr, Razmer, temp1, temp2, IndikSteps);
-	StepUp(arr, Razmer, temp1, temp2, IndikSteps);	StepRight(arr, Razmer, temp1, temp2, IndikSteps);
+	StepUp(arr, Razmer, temp1, temp2, IndikSteps);		StepRight(arr, Razmer, temp1, temp2, IndikSteps);
 	StepDown(arr, Razmer, temp1, temp2, IndikSteps);	StepRight(arr, Razmer, temp1, temp2, IndikSteps);	StepUp(arr, Razmer, temp1, temp2, IndikSteps);
 };
 template<size_t A> void DigitPlace(int arr[][A], const int Razmer, int& a, int& b, int Q) {
@@ -503,8 +503,7 @@ template<size_t A> void PCgame4x4(int arr[][A], int arr2[][A], const int Razmer,
 	}
 	else if (a == 1 && b == 1) {
 		Func2(arr, Razmer, temp1, temp2, IndikSteps);			StepDown(arr, Razmer, temp1, temp2, IndikSteps);
-		StepRight(arr, Razmer, temp1, temp2, IndikSteps);		StepUp(arr, Razmer, temp1, temp2, IndikSteps);
-		StepRight(arr, Razmer, temp1, temp2, IndikSteps);		StepDown(arr, Razmer, temp1, temp2, IndikSteps);
+		StepRight(arr, Razmer, temp1, temp2, IndikSteps);		Func10(arr, Razmer, temp1, temp2, IndikSteps);
 		StepLeft(arr, Razmer, temp1, temp2, IndikSteps);
 	}
 	else if (a == 1 && b == 2) {
@@ -585,8 +584,7 @@ template<size_t A> void PCgame4x4(int arr[][A], int arr2[][A], const int Razmer,
 		Func5(arr, Razmer, temp1, temp2, IndikSteps);			Func3(arr, Razmer, temp1, temp2, IndikSteps);
 	}
 	else if (a == 2 && b == 1) {
-		StepUp(arr, Razmer, temp1, temp2, IndikSteps);			StepUp(arr, Razmer, temp1, temp2, IndikSteps);
-		StepLeft(arr, Razmer, temp1, temp2, IndikSteps);		StepDown(arr, Razmer, temp1, temp2, IndikSteps);
+		Func6(arr, Razmer, temp1, temp2, IndikSteps);			StepDown(arr, Razmer, temp1, temp2, IndikSteps);
 		Func3(arr, Razmer, temp1, temp2, IndikSteps);
 	}
 	else if (a == 2 && b == 2) {
@@ -743,8 +741,7 @@ template<size_t A> void PCgame4x4(int arr[][A], int arr2[][A], const int Razmer,
 	else if (a == 3 && b == 3) {
 		StepUp(arr, Razmer, temp1, temp2, IndikSteps);			Func9(arr, Razmer, temp1, temp2, IndikSteps);
 		StepDown(arr, Razmer, temp1, temp2, IndikSteps);		StepDown(arr, Razmer, temp1, temp2, IndikSteps);
-		StepLeft(arr, Razmer, temp1, temp2, IndikSteps);		StepUp(arr, Razmer, temp1, temp2, IndikSteps);
-		StepRight(arr, Razmer, temp1, temp2, IndikSteps);		StepDown(arr, Razmer, temp1, temp2, IndikSteps);
+		StepLeft(arr, Razmer, temp1, temp2, IndikSteps);		Func10(arr, Razmer, temp1, temp2, IndikSteps);
 		StepRight(arr, Razmer, temp1, temp2, IndikSteps);		Corner(arr, Razmer, temp1, temp2, IndikSteps);
 	}
 	Q = 5;//													п€терка
@@ -776,8 +773,7 @@ template<size_t A> void PCgame4x4(int arr[][A], int arr2[][A], const int Razmer,
 		Func3(arr, Razmer, temp1, temp2, IndikSteps);			Func3(arr, Razmer, temp1, temp2, IndikSteps);
 	}
 	else if (a == 3 && b == 1) {
-		StepRight(arr, Razmer, temp1, temp2, IndikSteps);		StepUp(arr, Razmer, temp1, temp2, IndikSteps);
-		StepUp(arr, Razmer, temp1, temp2, IndikSteps);			StepLeft(arr, Razmer, temp1, temp2, IndikSteps);
+		StepRight(arr, Razmer, temp1, temp2, IndikSteps);		Func6(arr, Razmer, temp1, temp2, IndikSteps);
 		Func3(arr, Razmer, temp1, temp2, IndikSteps);			Func3(arr, Razmer, temp1, temp2, IndikSteps);
 	}
 	else if (a == 3 && b == 2) {
@@ -862,8 +858,7 @@ template<size_t A> void PCgame4x4(int arr[][A], int arr2[][A], const int Razmer,
 		Corner2(arr, Razmer, temp1, temp2, IndikSteps);
 	}
 	else if (a == 2 && b == 2) {
-		StepLeft(arr, Razmer, temp1, temp2, IndikSteps);		StepUp(arr, Razmer, temp1, temp2, IndikSteps);
-		StepRight(arr, Razmer, temp1, temp2, IndikSteps);		StepDown(arr, Razmer, temp1, temp2, IndikSteps);
+		StepLeft(arr, Razmer, temp1, temp2, IndikSteps);		Func10(arr, Razmer, temp1, temp2, IndikSteps);
 		Corner2(arr, Razmer, temp1, temp2, IndikSteps);
 	}
 	else if (a == 2 && b == 3) {
@@ -906,8 +901,7 @@ template<size_t A> void PCgame4x4(int arr[][A], int arr2[][A], const int Razmer,
 		StepLeft(arr, Razmer, temp1, temp2, IndikSteps);		Func3(arr, Razmer, temp1, temp2, IndikSteps);
 	}
 	else if (a == 3 && b == 1) {
-		StepUp(arr, Razmer, temp1, temp2, IndikSteps);			StepUp(arr, Razmer, temp1, temp2, IndikSteps);
-		StepLeft(arr, Razmer, temp1, temp2, IndikSteps);		StepDown(arr, Razmer, temp1, temp2, IndikSteps);
+		Func6(arr, Razmer, temp1, temp2, IndikSteps);			StepDown(arr, Razmer, temp1, temp2, IndikSteps);
 		Func3(arr, Razmer, temp1, temp2, IndikSteps);
 	}
 	else if (a == 3 && b == 2) {
@@ -937,9 +931,7 @@ template<size_t A> void PCgame4x4(int arr[][A], int arr2[][A], const int Razmer,
 	else if (a == 3 && b == 1) {
 		StepUp(arr, Razmer, temp1, temp2, IndikSteps);			StepUp(arr, Razmer, temp1, temp2, IndikSteps);
 		Func3(arr, Razmer, temp1, temp2, IndikSteps);			StepRight(arr, Razmer, temp1, temp2, IndikSteps);
-		StepUp(arr, Razmer, temp1, temp2, IndikSteps);			StepLeft(arr, Razmer, temp1, temp2, IndikSteps);
-		StepLeft(arr, Razmer, temp1, temp2, IndikSteps);		StepDown(arr, Razmer, temp1, temp2, IndikSteps);
-		Func3(arr, Razmer, temp1, temp2, IndikSteps);
+		Func5(arr, Razmer, temp1, temp2, IndikSteps);			Func3(arr, Razmer, temp1, temp2, IndikSteps);
 	}
 	else if (a == 3 && b == 2) {
 		Func6(arr, Razmer, temp1, temp2, IndikSteps);			StepDown(arr, Razmer, temp1, temp2, IndikSteps);
@@ -1030,9 +1022,7 @@ template<size_t A> void PCgame4x4(int arr[][A], int arr2[][A], const int Razmer,
 		}
 		else if (a == 3 && b == 2) {
 			StepRight(arr, Razmer, temp1, temp2, IndikSteps);		StepRight(arr, Razmer, temp1, temp2, IndikSteps);
-			StepDown(arr, Razmer, temp1, temp2, IndikSteps);		StepLeft(arr, Razmer, temp1, temp2, IndikSteps);
-			StepLeft(arr, Razmer, temp1, temp2, IndikSteps);		Func10(arr, Razmer, temp1, temp2, IndikSteps);
-			StepRight(arr, Razmer, temp1, temp2, IndikSteps);		StepUp(arr, Razmer, temp1, temp2, IndikSteps);
+			Corner(arr, Razmer, temp1, temp2, IndikSteps);			StepUp(arr, Razmer, temp1, temp2, IndikSteps);
 			StepLeft(arr, Razmer, temp1, temp2, IndikSteps);		StepLeft(arr, Razmer, temp1, temp2, IndikSteps);
 		}
 		ShowMap(arr, Razmer);
