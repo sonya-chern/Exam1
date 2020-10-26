@@ -6,10 +6,11 @@
 #define END_GAME "Пятнашки собраны. ПОБЕДА!!!"
 using namespace std;
 int i, j, Q, temp1, temp2, z, x, Direction, DigChange, IndikSteps = 0;
+
 int IndikObezian = 0;										// пасхальное яйцо))))))
 time_t StartTime, EndTime;
 int a, b;													//позиция числа на фишке
-int Menu();
+int Menu(int& IndikRegimaIgr);
 template<size_t A> void RightMap(int arr[][A], const int Razmer);
 template<size_t A> void CreateAndFillMapPC(int arr[][A], const int Razmer);
 template<size_t A> void CreateAndFillManual(int arr[][A], const int Razmer);
@@ -43,7 +44,8 @@ int main() {
 	setlocale(LC_ALL, "rus");
 	srand(time(NULL));
 	cout << "Привет! Сыграем? " << endl;
-	int IndikRegimaIgr = Menu();
+	int IndikRegimaIgr{ 0 };
+	Menu(IndikRegimaIgr);
 	if (IndikRegimaIgr < 1 || IndikRegimaIgr>8) return 0;
 	cout << "Игра началась!" << endl;
 	if (IndikRegimaIgr == 1) {					//3 на 3 вручную человек (p)
@@ -105,38 +107,50 @@ int main() {
 	}
 }
 ///////////////////////////////////////////////////////////////////////////////////
-int Menu() {
+int Menu(int &IndikRegimaIgr) {
 int a, b, c;
 cout << "Выберите размер поля: 1 - 3х3, 2 - 4х4, 0 - покинуть игру"<<endl;
 cin >> a;
+cin.ignore(32767, '\n');
 if (a == 0) { cout << "Пока!"; return 0; }
 else if (a > 2 || a < 0) {
-	cout << "Неправильно выбрано действие" << endl<<endl;
+	cout << "Неправильно выбрано действие" << endl;
 	IndikObezian++;
-	if (IndikObezian == 3) { cout << "Целься лучше, по клавишам не попадаешь)"<< endl; }
-	else { Menu(); }
-	return 0;
+	if (IndikObezian == 3) { cout << "Целься лучше, по клавишам не попадаешь)" << endl; IndikRegimaIgr = 0; }
+	else { Menu(IndikRegimaIgr); }
 }
 else {
-	cout << "Выберете режим перемешивания: 1 - вручную, 2 - компьютер, 0 - покинуть игру" << endl;
+	cout << "Выберите режим перемешивания: 1 - вручную, 2 - компьютер, 0 - покинуть игру" << endl;
 	cin >> b;
+	cin.ignore(32767, '\n');
 	if (b == 0) { cout << "Пока!"; return 0; }
-	else if (b > 2 || b < 0) { cout << "Неправильно выбрано действие" << endl; Menu(); }
-	else {cout << "Выберете режим игры: 1 - человек собирает, 2 - компьютер собирает, 0 - покинуть игру" << endl;
+	else if (b > 2 || b < 0) {
+		cout << "Неправильно выбрано действие" << endl;
+		IndikObezian++;
+		if (IndikObezian == 3) { cout << "Целься лучше, по клавишам не попадаешь)" << endl; IndikRegimaIgr = 0; }
+		else { Menu(IndikRegimaIgr); }
+	}
+	else {cout << "Выберите режим игры: 1 - человек собирает, 2 - компьютер собирает, 0 - покинуть игру" << endl;
 		cin >> c;
+		cin.ignore(32767, '\n');
 		if (c == 0) { cout << "Пока!"; return 0; }
-		else if (c > 2 || c < 0) { cout << "Неправильно выбран режим" << endl; Menu(); }
-		else if (b == 1 && a == 1 && c == 1) return 1;//	3 на 3 вручную человек
-		else if (b == 1 && a == 1 && c == 2) return 2; //	3 на 3 вручную комп
-		else if (b == 2 && a == 1 && c == 1) return 3;//	3 на 3 комп человек
-		else if (b == 2 && a == 1 && c == 2) return 4;//	3 на 3 комп комп
-		else if (b == 1 && a == 2 && c == 1) return 5;//	4 на 4 вручную человек
-		else if (b == 1 && a == 2 && c == 2) return 6;//	4 на 4 вручную комп
-		else if (b == 2 && a == 2 && c == 1) return 7;//	4 на 4 комп человек
-		else if (b == 2 && a == 2 && c == 2) return 8;//	4 на 4 комп комп
+		else if (c > 2 || c < 0) {
+			cout << "Неправильно выбрано действие" << endl;
+			IndikObezian++;
+			if (IndikObezian == 3) {cout << "Целься лучше, по клавишам не попадаешь)" << endl; IndikRegimaIgr = 0;	}
+			else { Menu(IndikRegimaIgr); }
+		}
+		else if (b == 1 && a == 1 && c == 1) IndikRegimaIgr = 1;//	3 на 3 вручную человек
+		else if (b == 1 && a == 1 && c == 2) IndikRegimaIgr = 2; //	3 на 3 вручную комп
+		else if (b == 2 && a == 1 && c == 1) IndikRegimaIgr = 3;//	3 на 3 комп человек
+		else if (b == 2 && a == 1 && c == 2) IndikRegimaIgr = 4;//	3 на 3 комп комп
+		else if (b == 1 && a == 2 && c == 1) IndikRegimaIgr = 5;//	4 на 4 вручную человек
+		else if (b == 1 && a == 2 && c == 2) IndikRegimaIgr = 6;//	4 на 4 вручную комп
+		else if (b == 2 && a == 2 && c == 1) IndikRegimaIgr = 7;//	4 на 4 комп человек
+		else if (b == 2 && a == 2 && c == 2) IndikRegimaIgr = 8;//	4 на 4 комп комп
 	}
 }
-return 0;
+return IndikRegimaIgr;
 };
 template<size_t A> void RightMap(int arr[][A], const int Razmer) {
 	arr[Razmer][Razmer];
@@ -262,32 +276,25 @@ template<size_t A> void StepUp(int arr[][A], const int Razmer, int& temp1, int& 
 	Sleep(300);	system("cls");
 }
 template<size_t A> void ChangeMap(int arr[][A], const int Razmer, int& DigChange, int& IndikSteps) {
-	cout << "Фишки меняются стрелками на клавиатуре. Для выхода нажмите Enter" << endl;
+	cout << "Для выхода нажмите Enter" << endl;
 	int Direction = _getch();
 	DigChange = 0;
+	system("cls");
 	if (Direction == 0 || Direction == 224) 
 		Direction = _getch();
 	switch (Direction){
 	case 75:
-		StepLeft(arr, Razmer, temp1, temp2, IndikSteps);
-		break;
+		StepLeft(arr, Razmer, temp1, temp2, IndikSteps);	break;
 	case 77:
-		StepRight(arr, Razmer, temp1, temp2, IndikSteps);
-		break;
+		StepRight(arr, Razmer, temp1, temp2, IndikSteps);	break;
 	case 72:
-		StepUp(arr, Razmer, temp1, temp2, IndikSteps);
-		break;
+		StepUp(arr, Razmer, temp1, temp2, IndikSteps);		break;
 	case 80:
-		StepDown(arr, Razmer, temp1, temp2, IndikSteps);
-		break;
+		StepDown(arr, Razmer, temp1, temp2, IndikSteps);	break;
 	case 13:
-		DigChange = 1;
-		break;
-	default:
-		break;
+		DigChange = 1;		break;
+	default: 				break;
 	}
-	//ShowMap(arr, Razmer);
-	system("cls");
 };
 template<size_t A> int IsItVictory(int arr[][A], int arr2[][A], const int Razmer) {
 	arr2[Razmer][Razmer];
@@ -1008,7 +1015,10 @@ template<size_t A> void PCgame4x4(int arr[][A], int arr2[][A], const int Razmer,
 	if (!(IsItVictory(arr, arr2, Razmer))) {
 		ShowMap(arr, Razmer);
 		cout << endl;
-		cout << "Я все собрал. Я - молодец!";
+		cout << "Я все собрал. Я - молодец!" << endl;
+		EndTime = time(NULL);
+		cout << "Время игры: " << (EndTime - StartTime) / 60 << " мин " << (EndTime - StartTime) % 60 << " сек" << endl;
+		cout << "Количество ходов: " << IndikSteps << endl;
 	}
 	else {
 		Q = 12;//											двеннадцать
@@ -1034,7 +1044,8 @@ template<size_t A> void PCgame4x4(int arr[][A], int arr2[][A], const int Razmer,
 	}
 };
 template<size_t A> void ManualGame(int arr[][A], int arr2[][A], const int Razmer, int& temp1, int& temp2, int& IndikSteps) {
-	cout << BEGIN_GAME << endl << endl;
+	system("cls");
+	cout << BEGIN_GAME << endl << "Фишки меняются стрелками на клавиатуре" << endl;
 	StartTime = time(NULL);
 	IndikSteps = 0;
 	do {
